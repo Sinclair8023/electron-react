@@ -1,0 +1,6 @@
+html,
+body,
+:global(#root) {
+    padding: 0;
+    margin: 0;
+}

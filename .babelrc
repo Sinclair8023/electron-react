@@ -1,0 +1,24 @@
+{
+    "presets": [
+      ["env", {
+        "targets": {
+          "chrome": 61
+        }
+      }],
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ],
+    "env": {
+      "development": {
+        "presets": [],
+        "plugins": ["react-hot-loader/babel", "remove-webpack"]
+      },
+      "production": {
+        "plugins": []
+      }
+    }
+  }
+  
