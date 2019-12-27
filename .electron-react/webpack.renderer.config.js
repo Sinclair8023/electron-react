@@ -44,7 +44,7 @@ let rendererConfig = {
         include: path.join(__dirname, "../src"),
         use: [
           'style-loader',
-          'css-loader?modules&localIdentName=[name]__[local]--[hash:base64:5]'
+          'css-loader?modules'
         ]
       },
       {

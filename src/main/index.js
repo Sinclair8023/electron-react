@@ -21,7 +21,10 @@ function createWindow() {
     height: 600,
     useContentSize: true,
     width: 900,
-    frame: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+    // frame: false,
   });
 
   mainWindow.loadURL(winURL);
@@ -44,6 +47,16 @@ app.on('activate', () => {
     createWindow();
   }
 });
+if (process.env.NODE_ENV === 'development') {
+  app.on('ready', () => {
+    let installExtension = require('electron-devtools-installer')
+    installExtension.default(installExtension.REACT_DEVELOPER_TOOLS)
+      .then(() => {})
+      .catch(err => {
+        console.log('Unable to install `react-devtools`: \n', err)
+      })
+  })
+}
 /**
  * Auto Updater
  *

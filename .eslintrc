@@ -5,5 +5,10 @@
         "no-underscore-dangle":"off",
         "react/jsx-filename-extension": "off",
         "import/prefer-default-export": "off"
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "codeFrame": true
     }
 }

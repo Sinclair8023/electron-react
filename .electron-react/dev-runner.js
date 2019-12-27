@@ -41,7 +41,7 @@ function logStats (proc, data) {
 function startRenderer () {
   return new Promise((resolve, reject) => {
     rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')].concat(rendererConfig.entry.renderer)
-
+    rendererConfig.mode = 'development'
     const compiler = webpack(rendererConfig)
     hotMiddleware = webpackHotMiddleware(compiler, { 
       log: false, 
@@ -51,7 +51,8 @@ function startRenderer () {
     compiler.plugin('compilation', compilation => {
       compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
         hotMiddleware.publish({ action: 'reload' })
-        cb()
+        console.log('html-webpack-plugin-after-emit', data, cb)
+        // cb()
       })
     })
 
@@ -79,8 +80,6 @@ function startRenderer () {
 
 function startMain () {
   return new Promise((resolve, reject) => {
-    mainConfig.entry.main = [path.join(__dirname, '../src/main/index.dev.js')].concat(mainConfig.entry.main)
-
     const compiler = webpack(mainConfig)
 
     compiler.plugin('watch-run', (compilation, done) => {
@@ -164,6 +163,7 @@ function greeting () {
 }
 
 function init () {
+  process.env.NODE_ENV = 'development'
   greeting()
 
   Promise.all([startRenderer(), startMain()])
