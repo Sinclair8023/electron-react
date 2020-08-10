@@ -11,7 +11,7 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin')
 let mainConfig = {
   mode: process.env.NODE_ENV !== 'production' ? 'development' : 'production',
   entry: {
-    main: path.join(__dirname, '../src/main/index.js')
+    main: path.join(__dirname, '../src/main/index.ts')
   },
   externals: [
     ...Object.keys(dependencies || {})
@@ -19,20 +19,22 @@ let mainConfig = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        use: {
-          loader: 'eslint-loader',
-          options: {
-            fix: true
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              onlyCompileBundledFiles: true,
+              transpileOnly: true,
+            }
           }
-        }
-      },
-      {
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        ]
       },
       {
         test: /\.node$/,

@@ -1,0 +1,35 @@
+@scope: chat;
+
+.@{scope} {
+  display: flex;
+  align-items: stretch;
+  &__tools{
+    width: 55px;
+    &--active{
+      width: 108px;
+    }
+  }
+  &__content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  &__header{
+    height: 70px;
+    width: 100%;
+    background-color: #f6f6f6;
+  }
+  &__list{
+    flex: 1;
+    background-color: #EEF1F3;
+  }
+  &__input{
+    height: 240px;
+    background-color: #fff;
+  }
+}
+
+:export {
+  scope: @scope
+}

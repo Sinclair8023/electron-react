@@ -13,38 +13,55 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 let rendererConfig = {
   devtool: "#cheap-module-eval-source-map",
   entry: {
-    renderer: path.join(__dirname, "../src/renderer/main.js")
+    renderer: path.join(__dirname, "../src/renderer/main.ts")
   },
   externals: [
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        enforce: "pre",
-        exclude: /node_modules/,
-        use: {
-          loader: "eslint-loader",
-          options: {
-            fix: true
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              onlyCompileBundledFiles: true,
+              transpileOnly: true,
+            }
           }
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
+        ]
       },
       {
         test: /\.node$/,
         use: "node-loader"
       },
       {
+        test: /\.less$/,
+        include: path.join(__dirname, "../src"),
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 },
+          },
+          'less-loader',
+        ]
+      },
+      {
         test: /\.css$/,
         include: path.join(__dirname, "../src"),
         use: [
           'style-loader',
-          'css-loader?modules'
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 },
+          }
         ]
       },
       {
@@ -54,8 +71,8 @@ let rendererConfig = {
           'style-loader',
           {
             loader: 'css-loader',
-            options: { modules: false, minimize: true }
-          },
+            options: { importLoaders: 1 },
+          }
         ]
       },
       {
@@ -119,7 +136,7 @@ let rendererConfig = {
     alias: {
       "@": path.join(__dirname, "../src/renderer")
     },
-    extensions: [".js", ".json", ".css", ".node"]
+    extensions: [".js", ".json", ".css", ".less", ".node", ".ts", ".tsx"]
   },
   target: "electron-renderer"
 };

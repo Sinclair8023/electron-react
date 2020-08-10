@@ -1,0 +1,29 @@
+@scope: layout;
+
+.@{scope} {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  &__nav{
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 36px;
+    background: linear-gradient(#0070F4 0%, #0088ff 100%);
+  }
+  &__avatar{
+    border: 1px solid #fff;
+  }
+  &__menu{
+    font-size: 32px;
+  }
+  &__content{
+    flex: 1;
+  }
+}
+
+:export {
+  scope: @scope
+}
